@@ -1,0 +1,10 @@
+---
+# defaults file for roles/fresh_configs
+
+suoders_path: "/etc/sudoers"
+
+initramfs_module_path: "/etc/initramfs-tools/modules"
+
+modules_to_install:
+  - lz4
+  - lz4_compress

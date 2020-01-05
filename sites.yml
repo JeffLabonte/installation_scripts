@@ -1,0 +1,6 @@
+- hosts: laptop
+  vars_files:
+    - vaults/secrets.yml
+  roles:
+    - dependencies
+    - fresh_configs

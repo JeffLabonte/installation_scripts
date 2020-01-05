@@ -1,0 +1,60 @@
+---
+# tasks file for roles/fresh_configs
+
+- name: Retrieve the zsh path
+  command: which zsh
+  register: zsh_path
+
+- name: Change the shell from bash to zsh
+  shell: chsh -s "{{ zsh_path.stdout }}" "{{ ansible_user }}"
+  become: yes
+
+- name: Change sudoers to writable
+  file:
+    path: "{{ suoders_path }}"
+    mode: 600
+  become: yes
+
+- name: Add pwdfeeback to /etc/sudoers
+  replace:
+    path: "{{ suoders_path }}"
+    regexp: ^(Defaults)+\s+(env_reset)+$
+    replace: Defaults        env_reset,pwfeedback
+    backup: yes
+  become: yes
+
+- name: Change sudoers to original mode
+  file:
+    path: "{{ suoders_path }}"
+    mode: 400
+  become: yes
+
+- name: Verify if zswap is enabled already
+  shell: cat /sys/module/zswap/parameters/enabled
+  register: zswap_enabled
+
+- name: Add modules to enable
+  template:
+    src: modules.j2
+    dest: "{{ initramfs_module_path }}"
+  become: yes
+  when: zswap_enabled.stdout == "N"
+
+- name: Update initramfs
+  shell:  update-initramfs -u
+  become: yes
+  when: zswap_enabled.stdout == "N"
+
+  # - name: Add kernel options to grub
+  #   replace:
+  #     path: /etc/default/grub
+  #     regexp: ^(quiet)\s+(splash)$
+  #     replace: quiet spalsh zswap.enabled=1 zswap.compressor=lz4
+  #     backup: yes
+  #   become: yes
+  #   when: zswap_enabled.stdout == "N"
+  # 
+  # 
+  # - name: Update grub
+  #   shell: update-grub
+  #   become: yes

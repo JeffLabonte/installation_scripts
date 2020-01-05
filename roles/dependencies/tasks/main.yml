@@ -1,0 +1,40 @@
+---
+# tasks file for roles/dependencies
+
+- name: Update and upgrade machine
+  apt:
+    upgrade: yes
+    update_cache: yes
+  become: yes
+
+- name: install dependencies
+  apt:
+    name: "{{ system_packages }}"
+    update_cache: yes
+    state: latest
+  become: yes
+
+- name: Install non-classic snaps
+  snap:
+    name: "{{ snap_packages }}"
+    classic: no
+    state: present
+  become: yes
+
+- name: Install classic snaps
+  snap:
+    name: "{{ snap_classic_packages }}"
+    classic: yes
+    state: present
+  become: yes
+
+- name: Add flathub to flatpak
+  shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  become: yes
+
+- name: Install flatpak packages
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ flatpak_packages }}"
+  become: yes

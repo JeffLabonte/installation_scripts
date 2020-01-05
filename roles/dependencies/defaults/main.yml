@@ -1,0 +1,56 @@
+---
+# defaults file for roles/dependencies
+
+system_packages:
+  - ansible
+  - vagrant
+  - virtualbox
+  - neofetch
+  - zsh
+  - python3-dev
+  - python3-pip
+  - python3-venv
+  - xz-utils
+  - neovim
+  - vim
+  - pass
+  - qtpass
+  - snapd
+  - flatpak
+  - curl
+  - software-properties-common
+  - gnupg-agent
+  - ca-certificates
+  - apt-transport-https
+  - gitkraken
+  - google-chrome-stable
+  - git
+  - git-lfs
+  - inkscape
+  - gimp
+  - ubuntu-restricted-addons
+  - vainfo
+  - i965-va-driver
+  - gstreamer1.0-vaapi
+  - gstreamer1.0-libav
+  - gstreamer1.0-plugins-ugly
+  - gstreamer1.0-plugins-bad
+  - openvpn
+  - cmake
+  - build-essential
+
+snap_packages:
+  - discord
+  - cacher
+  - telegram-desktop
+
+snap_classic_packages:
+  - slack
+  - pycharm-professional
+  - deja-dup
+
+flatpak_packages:
+  - https://flathub.org/repo/appstream/com.github.marktext.marktext.flatpakref
+  - https://flathub.org/repo/appstream/com.anydesk.Anydesk.flatpakref
+  - https://flathub.org/repo/appstream/com.github.muriloventuroso.easyssh.flatpakref
+  - https://flathub.org/repo/appstream/com.github.calo001.fondo.flatpakref
