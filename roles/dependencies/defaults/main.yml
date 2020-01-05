@@ -38,6 +38,7 @@ system_packages:
   - openvpn
   - cmake
   - build-essential
+  - tmux
 
 snap_packages:
   - discord
