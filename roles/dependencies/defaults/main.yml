@@ -49,6 +49,7 @@ snap_classic_packages:
   - slack
   - pycharm-professional
   - deja-dup
+  - aws-cli
 
 flatpak_packages:
   - https://flathub.org/repo/appstream/com.github.marktext.marktext.flatpakref
